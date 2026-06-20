@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp") version "1.9.20-1.0.14" // Jawna wersja dla pewności
-    id("com.google.dagger.hilt.android") version "2.51.1" // Jawna wersja dla pewności
+    id("com.google.devtools.ksp") // <--- Usuń resztę, zostaw sam id
+    id("com.google.dagger.hilt.android")
 }
 
 android {
