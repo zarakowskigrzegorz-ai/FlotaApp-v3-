@@ -1,12 +1,12 @@
 plugins {
-    alias(libs.plugins.android.application)
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
     alias(libs.plugins.kotlin.compose)
-    alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.roborazzi)
     alias(libs.plugins.secrets)
-    alias(libs.plugins.google.dagger.hilt)
-}
-    
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
+}    
     // 2. Dodatki z aliasów (system sam doczyta ich wersje)
     alias(libs.plugins.google.devtools.ksp)
     alias(libs.plugins.google.dagger.hilt)
