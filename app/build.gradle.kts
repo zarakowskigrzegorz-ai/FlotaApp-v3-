@@ -27,12 +27,7 @@ android {
             keyAlias = "upload"
             keyPassword = System.getenv("KEY_PASSWORD")
         }
-        create("debugConfig") {
-            storeFile = file("${rootDir}/debug.keystore")
-            storePassword = "android"
-            keyAlias = "androiddebugkey"
-            keyPassword = "android"
-        }
+        // Usunięty wymóg szukania pliku debug.keystore na serwerze
     }
 
     buildTypes {
@@ -43,7 +38,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
-            signingConfig = signingConfigs.getByName("debugConfig")
+            // Android użyje teraz domyślnego, wbudowanego klucza do testów
         }
     }
     
@@ -72,7 +67,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     
-    // Twardy zapis stabilnej wersji zamiast zepsutego aliasu z AI:
     implementation("androidx.core:core-ktx:1.13.1")
     
     implementation(libs.androidx.lifecycle.runtime.compose)
