@@ -4,6 +4,7 @@ plugins {
   alias(libs.plugins.google.devtools.ksp)
   alias(libs.plugins.roborazzi)
   alias(libs.plugins.secrets)
+alias(libs.plugins.google.dagger.hilt)
 }
 
 android {
@@ -118,4 +119,6 @@ dependencies {
   debugImplementation(libs.androidx.compose.ui.tooling)
   "ksp"(libs.androidx.room.compiler)
   "ksp"(libs.moshi.kotlin.codegen)
+implementation(libs.hilt.android)
+ksp(libs.hilt.compiler)
 }
