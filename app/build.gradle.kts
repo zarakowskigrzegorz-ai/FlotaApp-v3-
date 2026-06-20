@@ -1,8 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("com.google.devtools.ksp")
-    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp") version "1.9.20-1.0.14" // Jawna wersja dla pewności
+    id("com.google.dagger.hilt.android") version "2.51.1" // Jawna wersja dla pewności
 }
 
 android {
@@ -37,7 +37,7 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
-            // Android użyje domyślnego klucza debugowego
+            // Android użyje domyślnego klucza debugowego automatycznie
         }
     }
     
@@ -70,7 +70,6 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     
-    // Stabilna wersja core-ktx
     implementation("androidx.core:core-ktx:1.13.1")
     
     implementation(libs.androidx.lifecycle.runtime.compose)
