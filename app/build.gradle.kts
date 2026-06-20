@@ -27,7 +27,6 @@ android {
             keyAlias = "upload"
             keyPassword = System.getenv("KEY_PASSWORD")
         }
-        // Usunięty wymóg szukania pliku debug.keystore na serwerze
     }
 
     buildTypes {
@@ -38,13 +37,17 @@ android {
             signingConfig = signingConfigs.getByName("release")
         }
         debug {
-            // Android użyje teraz domyślnego, wbudowanego klucza do testów
+            // Android użyje domyślnego klucza debugowego
         }
     }
     
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
+    }
+    
+    kotlinOptions {
+        jvmTarget = "11"
     }
     
     buildFeatures {
@@ -67,6 +70,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     
+    // Stabilna wersja core-ktx
     implementation("androidx.core:core-ktx:1.13.1")
     
     implementation(libs.androidx.lifecycle.runtime.compose)
