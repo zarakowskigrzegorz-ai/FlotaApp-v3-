@@ -1,7 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose") // <--- DODAJ TO!
+    id("org.jetbrains.kotlin.plugin.compose") // Teraz Gradle wie, gdzie jej szukać
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 }
