@@ -7,12 +7,12 @@ plugins {
 
 android {
     namespace = "com.example"
-    compileSdk = 35 // <--- Zmiana na 35
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.aistudio.fleetmanager.mvp"
         minSdk = 24
-        targetSdk = 35 // <--- Zmiana na 35
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -57,7 +57,6 @@ android {
         buildConfig = true
     }
     
-    // Tradycyjny kompilator Compose idealnie dopasowany do Kotlina 1.9.20
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.4"
     }
@@ -72,7 +71,10 @@ dependencies {
     implementation(libs.androidx.compose.ui)
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
-    implementation(libs.androidx.core.ktx)
+    
+    // Twardy zapis stabilnej wersji zamiast zepsutego aliasu z AI:
+    implementation("androidx.core:core-ktx:1.13.1")
+    
     implementation(libs.androidx.lifecycle.runtime.compose)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.compose)
