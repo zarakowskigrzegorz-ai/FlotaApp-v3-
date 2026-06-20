@@ -1,19 +1,18 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
-    alias(libs.plugins.kotlin.compose)
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 }
 
 android {
     namespace = "com.example"
-    compileSdk = 34 // <-- Poprawiona, stabilna wersja API
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.aistudio.fleetmanager.mvp"
         minSdk = 24
-        targetSdk = 34 // <-- Poprawiona, stabilna wersja API
+        targetSdk = 34
         versionCode = 1
         versionName = "1.0"
 
@@ -47,23 +46,22 @@ android {
             signingConfig = signingConfigs.getByName("debugConfig")
         }
     }
+    
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
         targetCompatibility = JavaVersion.VERSION_11
     }
+    
     buildFeatures {
         compose = true
         buildConfig = true
     }
-    testOptions { unitTests { isIncludeAndroidResources = true } }
+    
+    // Tradycyjny kompilator Compose idealnie dopasowany do Kotlina 1.9.20
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.4"
+    }
 }
-
-// Zakomentowana sekcja secrets - wtyczka została usunięta, 
-// więc ten blok wywalałby błąd kompilacji.
-// secrets {
-//   propertiesFileName = ".env"
-//   defaultPropertiesFileName = ".env.example"
-// }
 
 dependencies {
     implementation(platform(libs.androidx.compose.bom))
@@ -95,11 +93,6 @@ dependencies {
     testImplementation(libs.junit)
     testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.robolectric)
-  
-    // Zakomentowane testy roborazzi
-    // testImplementation(libs.roborazzi)
-    // testImplementation(libs.roborazzi.compose)
-    // testImplementation(libs.roborazzi.junit.rule)
   
     androidTestImplementation(platform(libs.androidx.compose.bom))
     androidTestImplementation(libs.androidx.compose.ui.test.junit4)
