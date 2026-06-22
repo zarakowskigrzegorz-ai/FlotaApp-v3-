@@ -37,14 +37,18 @@ class DatabaseSeeder @Inject constructor(
             val reports = analyticsDao.getTripProfitabilityReport()
             if (reports.isNotEmpty()) {
                 val report = reports.first()
+                val przychod = report.przychodPln ?: 0.0
+                val koszty = report.kosztyZmiennePln ?: 0.0
+                val zysk = report.czyskZyskPln ?: 0.0
+
                 return "TEST LOGIKI BIZNESOWEJ:\n" +
-                       "Zarobek z frachtu: ${report.przychodPln} PLN\n" +
-                       "Odjęte koszty (Paliwo+Myto): ${report.kosztyZmiennePln} PLN\n\n" +
-                       "ZYSK NA CZYSTO: ${report.czystyZyskPln} PLN!"
+                       "Zarobek z frachtu: $przychod PLN\n" +
+                       "Odjęte koszty (Paliwo+Myto): $koszty PLN\n\n" +
+                       "ZYSK NA CZYSTO: $zysk PLN!"
             }
             return "Brak raportu do wyświetlenia."
         } catch (e: Exception) {
-            return "Błąd bazy: ${e.message}"
+            return "Błąd bazy danych: ${e.message}"
         }
     }
 }
