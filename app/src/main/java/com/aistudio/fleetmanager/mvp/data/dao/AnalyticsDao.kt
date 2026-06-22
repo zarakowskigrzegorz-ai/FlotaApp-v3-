@@ -46,7 +46,7 @@ interface AnalyticsDao {
                 FROM costs c 
                 WHERE c.fkTruckId = t.fkTruckId 
                   AND c.transactionDate BETWEEN t.startDate AND t.endDate
-            ), 0.0)) AS czystyZyskPln
+            ), 0.0)) AS czyskZyskPln
         FROM trips t
     """)
     fun getTripProfitabilityReport(): List<TripProfitReport>
