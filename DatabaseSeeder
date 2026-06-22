@@ -1,0 +1,38 @@
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+
+class DatabaseSeeder(
+    private val truckDao: TruckDao,       // Podmień na swoje rzeczywiste DAO
+    private val driverDao: DriverDao,     // Podmień na swoje rzeczywiste DAO
+    private val tripDao: TripDao,         // Podmień na swoje rzeczywiste DAO
+    private val costDao: CostDao,         // Podmień na swoje rzeczywiste DAO
+    private val costImportParser: CostImportParser
+) {
+
+    suspend fun seedDatabase() = withContext(Dispatchers.IO) {
+        // 1. Wstawienie testowej ciężarówki
+        val truck = TruckEntity(licensePlate = "PO12345")
+        truckDao.insert(truck)
+
+        // 2. Wstawienie testowego kierowcy
+        val driverId = driverDao.insert(DriverEntity(name = "Jan Kowalski"))
+
+        // 3. Parsowanie dwóch linii kosztów AS24 i zapis do bazy
+        val rawLine1 = "PALIWO_AS24;1800.0"
+        val rawLine2 = "MYTO_AS24;250.0"
+
+        val cost1 = costImportParser.parseLine(rawLine1)
+        val cost2 = costImportParser.parseLine(rawLine2)
+
+        costDao.insert(cost1)
+        costDao.insert(cost2)
+
+        // 4. Zapis testowej trasy z przychodem 1500 EUR
+        val trip = TripEntity(
+            driverId = driverId,
+            truckPlate = truck.licensePlate,
+            revenueEur = 1500.0
+        )
+        tripDao.insert(trip)
+    }
+}
