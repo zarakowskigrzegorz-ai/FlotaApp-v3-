@@ -1,12 +1,28 @@
 package com.aistudio.fleetmanager.mvp.data.dao
 
 import androidx.room.Dao
+import androidx.room.Insert
+import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.aistudio.fleetmanager.mvp.data.model.*
 
 @Dao
 interface AnalyticsDao {
 
-    // 1. Wyciąga sumę kosztów dla konkretnego ciągnika w danym czasie
+    // --- NOWE FUNKCJE DO ZAPISU DANYCH ---
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTruck(truck: TruckEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertDriver(driver: DriverEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertTrip(trip: TripEntity)
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCost(cost: CostEntity)
+
+    // --- TWOJE WCZEŚNIEJSZE FUNKCJE DO ANALITYKI ---
     @Query("""
         SELECT SUM(amountNetto) 
         FROM costs 
@@ -15,7 +31,6 @@ interface AnalyticsDao {
     """)
     fun getTotalVariableCosts(truckId: String, startDate: Long, endDate: Long): Double
 
-    // 2. Główny raport rentowności (Zysk = Przychód - Koszty Zmienne dla konkretnej trasy)
     @Query("""
         SELECT 
             t.id AS tripId,
@@ -42,7 +57,6 @@ interface AnalyticsDao {
     fun getTripProfitabilityReport(): List<TripProfitReport>
 }
 
-// Struktura danych, która odbiera wynik z powyższego zapytania SQL
 data class TripProfitReport(
     val tripId: Long,
     val ladunek: String,
